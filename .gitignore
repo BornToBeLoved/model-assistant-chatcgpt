@@ -130,3 +130,9 @@ dmypy.json
 
 # keys
 keys/
+
+# models
+models/
+
+# scenarios
+scenarios/
