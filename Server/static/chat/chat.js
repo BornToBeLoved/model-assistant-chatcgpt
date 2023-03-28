@@ -11,13 +11,28 @@ const Chat = (function(){
  
                 // 메시지 전송
                 sendMessage(message, myName);
+                const answer = sendToServer(message);
                 // 입력창 clear
                 clearTextarea();
-                sendMessage(message, "server")
+                console.log(answer)
+                sendMessage(answer, "server");
             }
         });
     }
- 
+    function sendToServer(message) {
+        var query;
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:2000/chat",
+            data: {query:message},
+            async: false,
+            success: function(response){
+               console.log(response)
+               query = response;
+            }
+          });
+        return query;
+    }
     // 메세지 태그 생성
     function createMessageTag(LR_className, senderName, message) {
         // 형식 가져오기

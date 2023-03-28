@@ -13,12 +13,18 @@ def init():
 
 
 
-@app.route('/preprocessing', methods=['GET', 'POST'])
+@app.route('/chat', methods=['POST', 'GET'])
 def chat():
-    if request.method == 'POST':
-        data = request.json
-        print(data)
-    return "THIS IS TEST"
+    print(request)
+    try:
+        print(request.form['query'])
+        if request.method == 'POST':
+            data = request.form['query']
+            print(data)
+        return "THIS IS TEST"
+    except Exception as e:
+        print(e)
+        return "FAILED"
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=2000, debug = True)
