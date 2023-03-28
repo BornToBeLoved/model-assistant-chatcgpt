@@ -62,6 +62,7 @@ const Chat = (function(){
     function rece(data) {
         const LR = (data.senderName != myName)? "left" : "right";
         appendMessageTag( LR, data.senderName, data.message);
+        $("body").scrollTop($(document).height());
     }
  
     return {
