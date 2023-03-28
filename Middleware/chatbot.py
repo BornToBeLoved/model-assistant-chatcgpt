@@ -75,7 +75,7 @@ class Chatbot:
 '''
 USER차원의 변수
 '''
-while True:
-    bot1 = Chatbot("1")
-    query = input("입력:")
-    print(bot1.talk_with_bot(query))
+# while True:
+#     bot1 = Chatbot("1")
+#     query = input("입력:")
+#     print(bot1.talk_with_bot(query))
