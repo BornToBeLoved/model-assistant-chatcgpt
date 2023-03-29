@@ -11,20 +11,20 @@ const Chat = (function(){
  
                 // 메시지 전송
                 sendMessage(message, myName);
-                const answer = sendToServer(message);
+                const answer = sendToServer(message, myName);
                 // 입력창 clear
                 clearTextarea();
-                console.log(answer)
+                // console.log(answer)
                 sendMessage(answer, "server");
             }
         });
     }
-    function sendToServer(message) {
+    function sendToServer(message, myName) {
         var query;
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:2000/chat",
-            data: {query:message},
+            data: {query:message, name: myName},
             async: false,
             success: function(response){
                console.log(response)
@@ -57,7 +57,7 @@ const Chat = (function(){
     }
  
     // 메세지 전송
-    function sendMessage(message, name) {
+    async function sendMessage(message, name) {
         // 서버에 전송하는 코드로 후에 대체
         const data = {
             "senderName"    : name,
