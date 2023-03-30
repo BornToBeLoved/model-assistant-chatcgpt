@@ -24,6 +24,7 @@ class Chatbot:
         self.username = username
         self.user_path = '/Users/iseong-won/model-assistant-chatgpt/userfiles' + f"/{self.username}"
         self.messages = self.load_message()
+        self.present_scene = 0
 
     # ChatGPT API 호출
     # 메시지(문맥) 설정하기
@@ -72,7 +73,29 @@ class Chatbot:
         if debug:
             print(answer)
 
+        # 현재 scene 탐지하기.
+        self.detect_scene(answer)
+
         return answer
+    
+    def detect_scene(self, answer):
+        if "[SCENE1]" in answer:
+            self.present_scene = 1
+            return answer.strip(["[SCENE1]"])
+        elif "[SCENE2]" in answer:
+            self.present_scene = 2
+            return answer.strip(["[SCENE2]"])
+        elif "[SCENE3]" in answer:
+            self.present_scene = 3
+            return answer.strip(["[SCENE3]"])
+        elif "[SCENE4]" in answer:
+            self.present_scene = 4
+            return answer.strip(["[SCENE4]"])
+        elif "[SCENE5]" in answer:
+            self.present_scene = 5
+            return answer.strip(["[SCENE5]"])
+        else:
+            return 0
 
 
 '''

@@ -33,7 +33,8 @@ def chat():
         return "DATA_RECIEVE_FAILED\n: 데이터를 주고받는 과정에서 오류가 발생했습니다. "
     try:
         bot1 = Chatbot(userName)
-        return bot1.talk_with_bot(data)
+        answer = bot1.talk_with_bot(data)
+        return answer
     except:
         return "CHATBOT_CONTACT_FAILED\n: 챗봇과 대화하는 과정에서 오류가 발생했습니다. "
 
