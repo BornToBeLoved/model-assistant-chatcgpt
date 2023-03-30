@@ -32,7 +32,12 @@ class User:
     def take_option(self, input):
         scene = self.present_scene
         if scene == 1:
-            print("USER: saved SCENE1 option")
+            if "제품 생애 총 판매량" or "1" in input:
+                self.selected_model = "1"
+                print("USER: saved SCENE1 option" + self.selected_model)
+            else:
+                print("USER: we are in scene1 but can't find user option")
+
         elif scene == 2:
             print("USER: saved SCENE2 option")
         elif scene == 3:
