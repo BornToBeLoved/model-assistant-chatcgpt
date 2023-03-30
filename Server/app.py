@@ -11,6 +11,7 @@ app = Flask(__name__)
 @app.route('/')
 def init():
     try:
+        # 접속할때 마다 대화 히스토리 지우기.
         shutil.rmtree('/Users/iseong-won/model-assistant-chatgpt/userfiles/blue')
     except:
         pass
