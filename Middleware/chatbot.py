@@ -33,6 +33,7 @@ class Chatbot:
         ]
         return messages
     
+    # 유저 메세지 저장소에 저장.
     def save_message(self, data = None):
         if data == None:
             data = self.make_first_content()
@@ -40,6 +41,7 @@ class Chatbot:
         with open(self.user_path+"/messages.json", "w") as f:
             json.dump(data, f)
 
+    # 저장된 메세지 불러오기.
     def load_message(self):
         if not os.path.exists(self.user_path):
             os.mkdir(self.user_path)
@@ -49,6 +51,7 @@ class Chatbot:
             data = json.load(f)
         return data
 
+    # OPENAI API사용해서 챗봇과 대화하기.
     def talk_with_bot(self, query, debug = False):
         if debug:
             print(query)
