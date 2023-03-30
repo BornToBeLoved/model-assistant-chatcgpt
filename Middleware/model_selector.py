@@ -3,6 +3,7 @@ import joblib
 import pandas as pd
 from sklearn.ensemble import GradientBoostingRegressor
 
+# 제품 생애 총 판매량 예측 모델
 class LifeCycle:
     def __init__(self, path):
         self.model = joblib.load(path+'/lifecycle_qboost.pkl')

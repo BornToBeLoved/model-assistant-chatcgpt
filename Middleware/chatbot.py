@@ -81,19 +81,24 @@ class Chatbot:
     def detect_scene(self, answer):
         if "[SCENE1]" in answer:
             self.present_scene = 1
-            return answer.strip(["[SCENE1]"])
+            print("chatbot: [SCENE1] DETECTED")
+            return answer.strip("[SCENE1]")
         elif "[SCENE2]" in answer:
             self.present_scene = 2
-            return answer.strip(["[SCENE2]"])
+            print("chatbot: [SCENE2] DETECTED")
+            return answer.strip("[SCENE2]")
         elif "[SCENE3]" in answer:
             self.present_scene = 3
-            return answer.strip(["[SCENE3]"])
+            print("chatbot: [SCENE3] DETECTED")
+            return answer.strip("[SCENE3]")
         elif "[SCENE4]" in answer:
             self.present_scene = 4
-            return answer.strip(["[SCENE4]"])
+            print("chatbot: [SCENE4] DETECTED")
+            return answer.strip("[SCENE4]")
         elif "[SCENE5]" in answer:
             self.present_scene = 5
-            return answer.strip(["[SCENE5]"])
+            print("chatbot: [SCENE5] DETECTED")
+            return answer.strip("[SCENE5]")
         else:
             return 0
 
