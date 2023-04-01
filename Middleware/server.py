@@ -1,7 +1,10 @@
 
-import os
+import os, sys
 import json
+import re
 
+sys.path.append(os.path.dirname('/Users/iseong-won/model-assistant-chatgpt/Middleware'))
+from Middleware import model_selector
 
 # 사용자이 옵션 관리 객체
 class User:
@@ -39,10 +42,23 @@ class User:
                 print("USER: we are in scene1 but can't find user option")
 
         elif scene == 2:
-            print("USER: saved SCENE2 option")
+            url = self.extract_file_path(input)
+            if url:
+                self.file_url = url
+                print("USER: saved SCENE2 option" + self.file_url)
+            else:
+                print("USER: we are in scene2 but can't find user option")
         elif scene == 3:
-            print("USER: saved SCENE3 option")
+            if self.selected_model == "1":
+                model = model_selector.LifeCycle(self.file_url)
+                self.model_result = model.predict()
+                print("USER: saved SCENE3 option" + str(self.model_result))
         elif scene == 4:
+            if self.model_result == '[DEFAULT]':
+                if self.selected_model == "1":
+                    model = model_selector.LifeCycle(self.file_url)
+                    self.model_result = model.predict()
+                    print("USER: saved SCENE3 option" + str(self.model_result))
             print("USER: saved SCENE4 option")
         elif scene == 5:
             print("USER: saved SCENE5 option")
@@ -54,3 +70,10 @@ class User:
     
     # def set_model_result(self, result):
     #     self.model_result = result
+    def extract_file_path(self, chrs):
+        p = re.compile(r'(\/[_0-9a-zA-Z-]+)+[_0-9a-zA-Z-]+\.[0-9a-zA-Z]+')
+        m = p.search(chrs)
+        if m:
+            return m.group()
+        else:
+            return False

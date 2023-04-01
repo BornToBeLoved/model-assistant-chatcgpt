@@ -6,8 +6,8 @@ from sklearn.ensemble import GradientBoostingRegressor
 # 제품 생애 총 판매량 예측 모델
 class LifeCycle:
     def __init__(self, path):
-        self.model = joblib.load(path+'/lifecycle_qboost.pkl')
-        self.data = pd.read_pickle(path+'/test_data.pkl')
+        self.model = joblib.load('/Users/iseong-won/model-assistant-chatgpt/models/lifecycle_qboost.pkl')
+        self.data = pd.read_pickle(path)
     
     def former(self, result):
         prodCode = list(self.data.prodcode)
@@ -24,9 +24,9 @@ class LifeCycle:
         return self.former(result)
     
 
-selected = LifeCycle('/Users/iseong-won/model-assistant-chatgpt/models')
+# selected = LifeCycle('/Users/iseong-won/model-assistant-chatgpt/models')
 
-print(selected.predict())
+# print(selected.predict())
     
         
 

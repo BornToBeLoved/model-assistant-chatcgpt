@@ -11,6 +11,8 @@ import scenarios.gpt_system_content as content
 
 import json
 
+import re
+
 # 발급받은 API 키 설정
 OPENAI_API_KEY = key.key
 
@@ -32,6 +34,9 @@ class Chatbot:
         messages = [
                 {"role": "system", "content": content.before_predict}
         ]
+        # messages = [
+        #         {"role": "system", "content": content.presentation}
+        # ]
         return messages
     
     # 유저 메세지 저장소에 저장.
@@ -63,7 +68,8 @@ class Chatbot:
             model= self.model,
             messages=self.messages
         )
-        answer = response['choices'][0]['message']['content']
+        # print(response)
+        answer =response['choices'][0]['message']['content']
 
         self.messages.append({"role": "assistant", "content": answer})
 
@@ -79,26 +85,14 @@ class Chatbot:
         return answer
     
     def detect_scene(self, answer):
-        if "[SCENE1]" in answer:
-            self.present_scene = 1
-            print("chatbot: [SCENE1] DETECTED")
-            return answer.strip("[SCENE1]")
-        elif "[SCENE2]" in answer:
-            self.present_scene = 2
-            print("chatbot: [SCENE2] DETECTED")
-            return answer.strip("[SCENE2]")
-        elif "[SCENE3]" in answer:
-            self.present_scene = 3
-            print("chatbot: [SCENE3] DETECTED")
-            return answer.strip("[SCENE3]")
-        elif "[SCENE4]" in answer:
-            self.present_scene = 4
-            print("chatbot: [SCENE4] DETECTED")
-            return answer.strip("[SCENE4]")
-        elif "[SCENE5]" in answer:
-            self.present_scene = 5
-            print("chatbot: [SCENE5] DETECTED")
-            return answer.strip("[SCENE5]")
+
+        p = re.compile(r"\[SCENE[0-9]\]")
+        m = p.findall(answer)
+        print(m)
+        if m:
+            num = m[-1][-2]
+            self.present_scene = int(num)
+            print(f"chatbot: [SCENE{num}] DETECTED") 
         else:
             return 0
 
@@ -110,3 +104,15 @@ USER차원의 변수
 #     bot1 = Chatbot("1")
 #     query = input("입력:")
 #     print(bot1.talk_with_bot(query))
+
+# def detect_scene(answer):
+
+#     p = re.compile(r"\[SCENE[0-9]\]")
+#     m = p.findall(answer)
+#     print(m)
+#     if m:
+#         num = m[-1][-2]
+#         print(f"chatbot: [SCENE{num}] DETECTED") 
+#     else:
+#         return 0
+# detect_scene("[SCENE1]번을 막 하다가 이제 [SCENE2]번이 나오면 머리가 하얀색이 되는거지")
